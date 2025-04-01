@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("UBB-SE-2025-EUROTRUCKERS")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8949582243767ddfd9ee6162fb22c535499f7eae")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+59c248618cd5aa77ab6c0e71745bb2a758344b83")]
 [assembly: System.Reflection.AssemblyProductAttribute("UBB-SE-2025-EUROTRUCKERS")]
 [assembly: System.Reflection.AssemblyTitleAttribute("UBB-SE-2025-EUROTRUCKERS")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1HpxfeT5fjY=",
+  "dgSpecHash": "Y5fNaV8iEN4=",
   "success": true,
-  "projectFilePath": "C:\\Users\\inaki\\Desktop\\UBB Workspace\\Software Engineering\\UBB-SE-2025-EUROTRUCKERS\\UBB-SE-2025-EUROTRUCKERS.csproj",
+  "projectFilePath": "C:\\Users\\inaki\\Desktop\\UBB_Workspace\\Software Engineering\\UBB-SE-2025-EUROTRUCKERS\\UBB-SE-2025-EUROTRUCKERS.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\inaki\\.nuget\\packages\\microsoft.web.webview2\\1.0.2903.40\\microsoft.web.webview2.1.0.2903.40.nupkg.sha512",
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages\\microsoft.windows.sdk.buildtools\\10.0.26100.1742\\microsoft.windows.sdk.buildtools.10.0.26100.1742.nupkg.sha512",

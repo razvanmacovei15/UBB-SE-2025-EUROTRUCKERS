@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\inaki\\Desktop\\UBB Workspace\\Software Engineering\\UBB-SE-2025-EUROTRUCKERS\\UBB-SE-2025-EUROTRUCKERS.csproj": {}
+    "C:\\Users\\inaki\\Desktop\\UBB_Workspace\\Software Engineering\\UBB-SE-2025-EUROTRUCKERS\\UBB-SE-2025-EUROTRUCKERS.csproj": {}
   },
   "projects": {
-    "C:\\Users\\inaki\\Desktop\\UBB Workspace\\Software Engineering\\UBB-SE-2025-EUROTRUCKERS\\UBB-SE-2025-EUROTRUCKERS.csproj": {
+    "C:\\Users\\inaki\\Desktop\\UBB_Workspace\\Software Engineering\\UBB-SE-2025-EUROTRUCKERS\\UBB-SE-2025-EUROTRUCKERS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\inaki\\Desktop\\UBB Workspace\\Software Engineering\\UBB-SE-2025-EUROTRUCKERS\\UBB-SE-2025-EUROTRUCKERS.csproj",
+        "projectUniqueName": "C:\\Users\\inaki\\Desktop\\UBB_Workspace\\Software Engineering\\UBB-SE-2025-EUROTRUCKERS\\UBB-SE-2025-EUROTRUCKERS.csproj",
         "projectName": "UBB-SE-2025-EUROTRUCKERS",
-        "projectPath": "C:\\Users\\inaki\\Desktop\\UBB Workspace\\Software Engineering\\UBB-SE-2025-EUROTRUCKERS\\UBB-SE-2025-EUROTRUCKERS.csproj",
+        "projectPath": "C:\\Users\\inaki\\Desktop\\UBB_Workspace\\Software Engineering\\UBB-SE-2025-EUROTRUCKERS\\UBB-SE-2025-EUROTRUCKERS.csproj",
         "packagesPath": "C:\\Users\\inaki\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\inaki\\Desktop\\UBB Workspace\\Software Engineering\\UBB-SE-2025-EUROTRUCKERS\\obj\\",
+        "outputPath": "C:\\Users\\inaki\\Desktop\\UBB_Workspace\\Software Engineering\\UBB-SE-2025-EUROTRUCKERS\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

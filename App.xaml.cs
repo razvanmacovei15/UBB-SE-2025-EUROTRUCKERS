@@ -1,50 +1,117 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.ApplicationModel;
-using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
-using Microsoft.UI.Xaml.Shapes;
+using Microsoft.Extensions.DependencyInjection;
+using UBB_SE_2025_EUROTRUCKERS.Data;
+using Microsoft.EntityFrameworkCore;
+using LaunchActivatedEventArgs = Microsoft.UI.Xaml.LaunchActivatedEventArgs;
+using UBB_SE_2025_EUROTRUCKERS.Services;
+using UBB_SE_2025_EUROTRUCKERS.ViewModels;
+using UBB_SE_2025_EUROTRUCKERS.Views;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Hosting;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
 namespace UBB_SE_2025_EUROTRUCKERS
 {
-    /// <summary>
-    /// Provides application-specific behavior to supplement the default Application class.
-    /// </summary>
     public partial class App : Application
     {
-        /// <summary>
-        /// Initializes the singleton application object.  This is the first line of authored code
-        /// executed, and as such is the logical equivalent of main() or WinMain().
-        /// </summary>
+        public IHost Host { get; private set; }
+        public static IServiceProvider Services { get; private set; }
+
         public App()
         {
             this.InitializeComponent();
+
+            Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
+                .ConfigureServices(ConfigureServices)
+                .Build();
+
+            Services = Host.Services;
         }
 
-        /// <summary>
-        /// Invoked when the application is launched.
-        /// </summary>
-        /// <param name="args">Details about the launch request and process.</param>
-        protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
+        private void ConfigureServices(IServiceCollection services)
         {
-            m_window = new MainWindow();
-            m_window.Activate();
+            // 1. Configuration of Entity Framework Core with PostgreSQL
+            services.AddDbContext<TransportDbContext>(options =>
+            {
+                options.UseNpgsql("Host=localhost;Database=transport_dev;Username=transport_app;Password=admin");
+
+                // Aditional settings (for development)
+                options.EnableSensitiveDataLogging();
+                options.EnableDetailedErrors();
+            });
+
+            // 2. DB initilization
+            services.AddTransient<DatabaseInitializer>();
+
+            // 3. App services
+            services.AddSingleton<INavigationService, NavigationService>();
+            services.AddTransient<IDeliveryService, DeliveryService>();
+            services.AddSingleton<IDialogService, DialogService>();
+            services.AddLogging(configure => configure.AddDebug());
+
+            // 4. Repositories
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+            // 5. ViewModels
+            services.AddTransient<MainViewModel>();
+            services.AddTransient<DeliveriesViewModel>();
+
+            // 6. Views
+            services.AddTransient<MainWindow>();
+
+            // 7. Additional configuration
+            services.AddLogging(configure => configure.AddDebug());
         }
 
-        private Window? m_window;
+        protected override async void OnLaunched(LaunchActivatedEventArgs args)
+        {
+            base.OnLaunched(args);
+
+            try
+            {
+                // Inicializar la base de datos
+                using var scope = Services.CreateScope();
+                var initializer = scope.ServiceProvider.GetRequiredService<DatabaseInitializer>();
+                await initializer.InitializeDatabaseAsync();
+
+                // Mostrar la ventana principal
+                var mainWindow = Services.GetRequiredService<MainWindow>();
+                mainWindow.Activate();
+
+                // Inicializar servicios que necesitan la ventana
+                var dialogService = Services.GetRequiredService<IDialogService>();
+                if (dialogService is DialogService concreteDialogService)
+                {
+                    // Esperar a que la ventana esté lista
+                    await Task.Delay(300); // Pequeña espera para asegurar la inicialización
+                    concreteDialogService.Initialize(mainWindow);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error durante el inicio: {ex}");
+
+                try
+                {
+                    var dialogService = Services.GetRequiredService<IDialogService>();
+                    await dialogService.ShowErrorDialogAsync(
+                        "Error de inicio",
+                        $"No se pudo iniciar la aplicación. Error: {ex.Message}");
+                }
+                catch (Exception dialogEx)
+                {
+                    Debug.WriteLine($"Error al mostrar diálogo de error: {dialogEx}");
+                    // Fallback absoluto
+                    System.Diagnostics.Debug.WriteLine($"CRITICAL ERROR: {ex}");
+                }
+
+                Current.Exit();
+            }
+        }
     }
 }

@@ -1,0 +1,17 @@
+<UserControl
+    x:Class="UBB_SE_2025_EUROTRUCKERS.Views.DeliveriesView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ListView ItemsSource="{Binding Deliveries}">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <StackPanel>
+                    <TextBlock Text="{Binding Id}" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding Status}"/>
+                    <TextBlock Text="{Binding DeliveryDate}"/>
+                </StackPanel>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</UserControl>

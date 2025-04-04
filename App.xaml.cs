@@ -38,7 +38,7 @@ namespace UBB_SE_2025_EUROTRUCKERS
             // 1. Configuration of Entity Framework Core with PostgreSQL
             services.AddDbContext<TransportDbContext>(options =>
             {
-                options.UseNpgsql("Host=localhost;Database=postgres;Username=postgres;Password=admin");
+                options.UseNpgsql("Host=localhost;Database=transport_dev;Username=postgres;Password=admin");
 
                 // Aditional settings (for development)
                 options.EnableSensitiveDataLogging();

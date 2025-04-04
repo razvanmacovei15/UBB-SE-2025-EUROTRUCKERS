@@ -29,7 +29,8 @@
         </StackPanel>
 
         <!-- Deliveries list -->
-        <controls:ItemsRepeater Grid.Row="1" 
+        <ScrollView Grid.Row="1">
+        <controls:ItemsRepeater 
                                ItemsSource="{Binding Deliveries}"
                                Margin="20">
             <controls:ItemsRepeater.Layout>
@@ -40,7 +41,7 @@
 
             <controls:ItemsRepeater.ItemTemplate>
                 <DataTemplate x:DataType="models:Delivery">
-                    <Border Background="{ThemeResource CardBackgroundFillColorDefault}"
+                    <Border Background="#C0000000"
                             BorderBrush="{ThemeResource CardStrokeColorDefault}"
                             BorderThickness="1"
                             CornerRadius="8"
@@ -48,34 +49,27 @@
                             Margin="10"
                             PointerPressed="DeliveryCard_PointerPressed">
                         <StackPanel>
-                            <TextBlock Text="{Binding ReferenceNumber}"
+                            <TextBlock Text="{Binding reference_number}"
                                       FontSize="18"
                                       FontWeight="SemiBold"/>
 
                             <StackPanel Margin="0,10,0,0">
-                                <TextBlock Text="{Binding DepartureAddress}" 
+                                <TextBlock Text="{Binding departure_address}" 
                                            Style="{ThemeResource BodyTextBlockStyle}"/>
                                 <SymbolIcon Symbol="Forward" HorizontalAlignment="Center"/>
-                                <TextBlock Text="{Binding DestinationAddress}" 
+                                <TextBlock Text="{Binding destination_address}" 
                                            Style="{ThemeResource BodyTextBlockStyle}"/>
                             </StackPanel>
 
-                            <TextBlock Text="{Binding Driver.FirstName}"
-                                      Margin="0,10,0,0"
-                                      Style="{ThemeResource CaptionTextBlockStyle}"/>
-
-                            <TextBlock Text="{Binding Driver.LastName}"
-                                      Margin="0,10,0,0"
-                                      Style="{ThemeResource CaptionTextBlockStyle}"/>   
-
-                            <TextBlock Text="{Binding Status}"
+                            <TextBlock Text="{Binding status}"
                                       Margin="0,5,0,0"
-                                      Foreground="{Binding Status, Converter={StaticResource StatusToColorConverter}}"/>
+                                      Foreground="{Binding status, Converter={StaticResource StatusToColorConverter}}"/>
                         </StackPanel>
                     </Border>
                 </DataTemplate>
             </controls:ItemsRepeater.ItemTemplate>
         </controls:ItemsRepeater>
+        </ScrollView>
 
         <!-- Progress Ring when loading -->
         <controls:ProgressRing Grid.Row="1"

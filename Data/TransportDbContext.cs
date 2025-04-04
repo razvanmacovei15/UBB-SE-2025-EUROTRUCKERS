@@ -19,19 +19,22 @@ namespace UBB_SE_2025_EUROTRUCKERS.Data
         {
             // Configuraciones del modelo
             modelBuilder.Entity<Delivery>()
-                .HasOne(d => d.Driver)
-                .WithMany()
-                .HasForeignKey(d => d.DriverId);
+                .HasKey(d => d.delivery_id);
 
             modelBuilder.Entity<Delivery>()
-                .HasOne(d => d.Truck)
+                .HasOne(d => d.driver)
                 .WithMany()
-                .HasForeignKey(d => d.TruckId);
+                .HasForeignKey(d => d.driver_id);
 
             modelBuilder.Entity<Delivery>()
-                .HasOne(d => d.Company)
+                .HasOne(d => d.truck)
                 .WithMany()
-                .HasForeignKey(d => d.CompanyId);
+                .HasForeignKey(d => d.truck_id);
+
+            modelBuilder.Entity<Delivery>()
+                .HasOne(d => d.company)
+                .WithMany()
+                .HasForeignKey(d => d.company_id);
 
             modelBuilder.Entity<Delivery>().ToTable("deliveries","transport");
         }

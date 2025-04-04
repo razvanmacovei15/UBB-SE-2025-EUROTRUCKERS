@@ -4,23 +4,22 @@ namespace UBB_SE_2025_EUROTRUCKERS.Models
 {
     public class Delivery
     {
-        public int DeliveryId { get; set; }
-        public string ReferenceNumber { get; set; }
-        public string DepartureAddress { get; set; }
-        public string DestinationAddress { get; set; }
-        public DateTime DepartureTime { get; set; }
-        public DateTime EstimatedTimeArrival { get; set; }
-        public string Status { get; set; }
-        public int DriverId { get; set; }
-        public Driver Driver { get; set; }
-        public int TruckId { get; set; }
-        public Truck Truck { get; set; }
-        public int CompanyId { get; set; }
-        public Company Company { get; set; }
-        public string CargoDescription { get; set; }
-        public decimal WeightKg { get; set; }
-        public decimal TotalDistanceKm { get; set; }
-        public decimal FeeEuros { get; set; }
-        public string Notes { get; set; }
+        public int delivery_id { get; set; }
+        public string reference_number { get; set; }
+        public string departure_address { get; set; }
+        public string destination_address { get; set; }
+        public DateTime departure_time { get; set; }
+        public DateTime estimated_time_arrival { get; set; }
+        public string status { get; set; }
+        public int driver_id { get; set; }
+        public Driver driver { get; set; }
+        public int truck_id { get; set; }
+        public Truck truck { get; set; }
+        public int company_id { get; set; }
+        public Company company { get; set; }
+        public string cargo_description { get; set; }
+        public decimal weight_kg { get; set; }
+        public decimal total_distance_km { get; set; }
+        public decimal fee_euros { get; set; }
     }
 }

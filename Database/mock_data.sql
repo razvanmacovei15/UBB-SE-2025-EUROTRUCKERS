@@ -50,4 +50,16 @@ VALUES
      
     ('DEL-20230005', 'Centro de Distribución Norte, Burgos', 'Polígono Industrial Oeste, A Coruña',
      '2023-06-04 06:00:00+02', '2023-06-04 12:00:00+02', 'PLANNED',
+     4, 1, 3, 'Productos alimenticios', 15000.00, 550.0, 700.00),
+
+     ('DEL-20230006', 'Centro de Distribución Norte, Burgos', 'Polígono Industrial Oeste, A Coruña',
+     '2023-06-04 06:00:00+02', '2023-06-04 12:00:00+02', 'PLANNED',
+     4, 1, 3, 'Productos alimenticios', 15000.00, 550.0, 700.00),
+
+     ('DEL-20230007', 'Centro de Distribución Norte, Burgos', 'Polígono Industrial Oeste, A Coruña',
+     '2023-06-04 06:00:00+02', '2023-06-04 12:00:00+02', 'PLANNED',
+     4, 1, 3, 'Productos alimenticios', 15000.00, 550.0, 700.00),
+
+     ('DEL-20230008', 'Centro de Distribución Norte, Burgos', 'Polígono Industrial Oeste, A Coruña',
+     '2023-06-04 06:00:00+02', '2023-06-04 12:00:00+02', 'PLANNED',
      4, 1, 3, 'Productos alimenticios', 15000.00, 550.0, 700.00);

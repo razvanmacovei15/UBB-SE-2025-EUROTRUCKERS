@@ -52,7 +52,7 @@ namespace UBB_SE_2025_EUROTRUCKERS.Services
             var delivery = await _deliveryRepository.GetByIdAsync(deliveryId);
             if (delivery != null)
             {
-                delivery.Status = status;
+                delivery.status = status;
                 await _deliveryRepository.UpdateAsync(delivery);
             }
         }

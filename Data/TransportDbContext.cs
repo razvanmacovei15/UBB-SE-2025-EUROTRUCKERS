@@ -10,10 +10,10 @@ namespace UBB_SE_2025_EUROTRUCKERS.Data
         {
         }
 
-        public DbSet<Company> Companies { get; set; }
-        public DbSet<Driver> Drivers { get; set; }
-        public DbSet<Truck> Trucks { get; set; }
-        public DbSet<Delivery> Deliveries { get; set; }
+        public DbSet<Company> companies { get; set; }
+        public DbSet<Driver> drivers { get; set; }
+        public DbSet<Truck> trucks { get; set; }
+        public DbSet<Delivery> deliveries { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -32,6 +32,8 @@ namespace UBB_SE_2025_EUROTRUCKERS.Data
                 .HasOne(d => d.Company)
                 .WithMany()
                 .HasForeignKey(d => d.CompanyId);
+
+            modelBuilder.Entity<Delivery>().ToTable("deliveries","transport");
         }
     }
 }

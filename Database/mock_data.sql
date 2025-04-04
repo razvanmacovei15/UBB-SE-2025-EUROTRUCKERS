@@ -1,7 +1,4 @@
 
--- Make sure to execute first schema.sql
-\c transport_dev
-
 -- Insert transport companies
 INSERT INTO transport.companies (name, address, phone, email)
 VALUES

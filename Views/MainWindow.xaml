@@ -1,31 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Window
     x:Class="UBB_SE_2025_EUROTRUCKERS.Views.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls">
 
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="ms-appx:///Assets/background.jpg" Stretch="UniformToFill"/>
+            <ImageBrush ImageSource="/Assets/background.jpg" Stretch="UniformToFill" />
         </Grid.Background>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+        <!-- NavigationView con ItemInvoked -->
+        <controls:NavigationView Grid.Column="0"
+                              x:Name="NavView"
+                              PaneDisplayMode="LeftCompact"
+                              IsBackButtonVisible="Collapsed"
+                              IsSettingsVisible="False"
+                              Background="#80000000"
+                              ItemInvoked="NavView_ItemInvoked">
 
-        <!-- Navigation bar con fondo semitransparente -->
-        <StackPanel Orientation="Horizontal" Grid.Row="0" Background="#7F000000">
-            <Button Content="Deliveries" Command="{Binding NavigateToDeliveriesCommand}" 
-                       Style="{StaticResource NavigationButtonStyle}"/>
-            <Button Content="Log Out" Command="{Binding LogOutCommand}"
-                       Style="{StaticResource NavigationButtonStyle}"/>
-        </StackPanel>
+            <controls:NavigationView.MenuItems>
+                <controls:NavigationViewItem 
+                    Content="Deliveries" 
+                    Icon="Map" 
+                    Tag="deliveries"/>
 
-        <!-- Dynamic content con fondo semitransparente -->
-        <Frame x:Name="MainContent" Grid.Row="1" Background="#7FFFFFFF"/>
+                <controls:NavigationViewItem 
+                    Content="Log Out" 
+                    Icon="LeaveChat" 
+                    Tag="logout"/>
+            </controls:NavigationView.MenuItems>
+        </controls:NavigationView>
+
+        <!-- Content Frame -->
+        <Frame x:Name="MainContent" Grid.Column="1"/>
     </Grid>
 </Window>

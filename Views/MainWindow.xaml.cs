@@ -1,10 +1,9 @@
-﻿using Microsoft.UI.Xaml;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.UI.Xaml.Navigation;
+using UBB_SE_2025_EUROTRUCKERS.Services;
 using UBB_SE_2025_EUROTRUCKERS.ViewModels;
-using UBB_SE_2025_EUROTRUCKERS.Views;
-using UBB_SE_2025_EUROTRUCKERS.ViewModels;
-using UBB_SE_2025_EUROTRUCKERS;
 
 namespace UBB_SE_2025_EUROTRUCKERS.Views
 {
@@ -15,10 +14,26 @@ namespace UBB_SE_2025_EUROTRUCKERS.Views
         public MainWindow()
         {
             this.InitializeComponent();
-
-            // Obtener ViewModel del contenedor DI
             ViewModel = App.Services.GetRequiredService<MainViewModel>();
+            var navigationService = App.Services.GetRequiredService<INavigationService>();
+            navigationService.SetContentFrame(MainContent);
 
+        }
+
+        private void NavView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
+        {
+            if (args.InvokedItemContainer is NavigationViewItem item)
+            {
+                switch (item.Tag.ToString())
+                {
+                    case "deliveries":
+                        ViewModel.NavigateToDeliveriesCommand.Execute(null);
+                        break;
+                    case "logout":
+                        ViewModel.LogOutCommand.Execute(null);
+                        break;
+                }
+            }
         }
     }
 }

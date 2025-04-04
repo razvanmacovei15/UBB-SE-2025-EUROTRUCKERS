@@ -28,41 +28,58 @@ namespace UBB_SE_2025_EUROTRUCKERS.Data
 
         public async Task InitializeDatabaseAsync()
         {
-            // Verifying if database exists
-            bool databaseExists = await _context.Database.CanConnectAsync();
-
-            if (!databaseExists)
-            {
-                await CreateDatabaseFromScriptsAsync();
-            }
-            else
-            {
-                // Verify if tables exist
-                var tablesExist = await _context.Deliveries.AnyAsync();
-                if (!tablesExist)
-                {
-                    await CreateDatabaseFromScriptsAsync();
-                }
-            }
+            await CreateDatabaseFromScriptsAsync();
         }
 
         private async Task CreateDatabaseFromScriptsAsync()
         {
-            var connectionString = "Host=localhost;Username=postgres;Password=admin;";
+            using var adminConnection = new NpgsqlConnection("Host=localhost;Username=postgres;Password=admin;Database=postgres");
+            adminConnection.Open();
 
-            using (var connection = new NpgsqlConnection(connectionString))
+            var dbExistsCmd = new NpgsqlCommand("SELECT 1 FROM pg_database WHERE datname = 'transport_dev'", adminConnection);
+            var exists = dbExistsCmd.ExecuteScalar() != null;
+
+            if (!exists)
             {
-                await connection.OpenAsync();
+                var createDbCmd = new NpgsqlCommand("CREATE DATABASE transport_dev WITH ENCODING 'UTF8'", adminConnection);
+                createDbCmd.ExecuteNonQuery();
+                Console.WriteLine("Database transport_dev created.");
+            }
+            else
+            {
+                Console.WriteLine("Database transport_dev already exists.");
+            }
 
-                // Execute schema.sql
-                var schemaScript = await File.ReadAllTextAsync(_schemaScriptPath);
-                await ExecuteScriptAsync(connection, schemaScript);
+            adminConnection.Close();
 
-                // Execute mock_data.sql
-                var mockDataScript = await File.ReadAllTextAsync(_mockDataScriptPath);
-                await ExecuteScriptAsync(connection, mockDataScript);
+            // Nueva conexión a transport_dev
+            using (var connection = new NpgsqlConnection("Host=localhost;Username=postgres;Password=admin;Database=transport_dev"))
+            {
+                try
+                {
+                    connection.Open();
+                    Console.WriteLine("Connection to transport_dev established.");
+
+                    // Ejecutar schema.sql
+                    var schemaScript = await File.ReadAllTextAsync(_schemaScriptPath);
+                    Console.WriteLine("Executing schema script...");
+                    await ExecuteScriptAsync(connection, schemaScript);
+
+                    // Ejecutar mock_data.sql
+                    var mockDataScript = await File.ReadAllTextAsync(_mockDataScriptPath);
+                    Console.WriteLine("Executing mock data script...");
+                    await ExecuteScriptAsync(connection, mockDataScript);
+
+                    Console.WriteLine("Scripts executed successfully.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error during script execution.");
+                    Console.WriteLine(ex.Message);
+                }
             }
         }
+
 
         private async Task ExecuteScriptAsync(NpgsqlConnection connection, string script)
         {

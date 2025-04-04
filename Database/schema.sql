@@ -1,20 +1,4 @@
 
--- Deletes development database if already exists
-DROP DATABASE IF EXISTS transport_dev;
-
--- Creates database
-CREATE DATABASE transport_dev
-    WITH 
-    OWNER = postgres
-    ENCODING = 'UTF8'
-    LC_COLLATE = 'en_US.UTF-8'
-    LC_CTYPE = 'en_US.UTF-8'
-    TABLESPACE = pg_default
-    CONNECTION LIMIT = -1;
-
--- Connect to just created database
-\c transport_dev
-
 -- Create main schema
 CREATE SCHEMA transport;
 
@@ -24,7 +8,7 @@ CREATE TABLE transport.companies (
     name VARCHAR(100) NOT NULL,
     address TEXT NOT NULL,
     phone VARCHAR(20),
-    email VARCHAR(100),
+    email VARCHAR(100)
 );
 
 -- Drivers table
@@ -36,7 +20,7 @@ CREATE TABLE transport.drivers (
     phone VARCHAR(20),
     email VARCHAR(100),
     hire_date DATE NOT NULL,
-    status VARCHAR(15) NOT NULL CHECK (status IN ('ACTIVE', 'INACTIVE', 'VACATION', 'SICK_LEAVE')),
+    status VARCHAR(15) NOT NULL CHECK (status IN ('ACTIVE', 'INACTIVE', 'VACATION', 'SICK_LEAVE'))
 );
 
 -- Trucks table
@@ -49,7 +33,7 @@ CREATE TABLE transport.trucks (
     capacity_kg DECIMAL(10, 2) NOT NULL,
     status VARCHAR(15) NOT NULL CHECK (status IN ('AVAILABLE', 'IN_MAINTENANCE', 'IN_USE', 'RETIRED')),
     last_maintenance_date DATE,
-    next_maintenance_date DATE,
+    next_maintenance_date DATE
 );
 
 -- Deliveries table
@@ -67,5 +51,5 @@ CREATE TABLE transport.deliveries (
     cargo_description TEXT,
     weight_kg DECIMAL(10, 2),
     total_distance_km DECIMAL(10, 2),
-    fee_euros DECIMAL(10, 2),
+    fee_euros DECIMAL(10, 2)
 );

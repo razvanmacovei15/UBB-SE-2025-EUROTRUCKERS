@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using System.Windows.Input;
 using UBB_SE_2025_EUROTRUCKERS.Services;
 
@@ -26,8 +28,13 @@ namespace UBB_SE_2025_EUROTRUCKERS.ViewModels
 
             LogOutCommand = new RelayCommand(() =>
             {
-                // Lógica para cerrar sesión
+                Application.Current.Exit();
             });
+        }
+
+        public void SetContentFrame(Frame frame)
+        {
+            _navigationService.SetContentFrame(frame);
         }
     }
 }

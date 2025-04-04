@@ -56,7 +56,7 @@
                             <StackPanel Margin="0,10,0,0">
                                 <TextBlock Text="{Binding departure_address}" 
                                            Style="{ThemeResource BodyTextBlockStyle}"/>
-                                <SymbolIcon Symbol="Forward" HorizontalAlignment="Center"/>
+                                <SymbolIcon Symbol="Forward" HorizontalAlignment="Right"/>
                                 <TextBlock Text="{Binding destination_address}" 
                                            Style="{ThemeResource BodyTextBlockStyle}"/>
                             </StackPanel>

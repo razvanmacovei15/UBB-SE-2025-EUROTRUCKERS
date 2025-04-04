@@ -15,11 +15,19 @@ namespace UBB_SE_2025_EUROTRUCKERS.ViewModels
         private readonly INavigationService _navigationService;
 
         [ObservableProperty]
-        private ObservableCollection<Delivery> _deliverieDetails = new();
+        private Delivery _selectedDelivery = new();
+
+        public DetailsViewModel(INavigationService navigationService)
+        {
+            _navigationService = navigationService;
+            Title = "SelectedDelivery";
+        }
+
         private void NavigateToDetails(Delivery delivery)
         {
             if (delivery != null)
             {
+                _selectedDelivery = delivery;
                 _navigationService.NavigateToWithParameter<DetailsViewModel>(delivery);
             }
         }

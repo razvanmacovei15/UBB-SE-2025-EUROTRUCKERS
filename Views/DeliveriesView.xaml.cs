@@ -2,7 +2,6 @@
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using UBB_SE_2025_EUROTRUCKERS.ViewModels;
-using UBB_SE_2025_EUROTRUCKERS.Services;
 using Microsoft.Extensions.DependencyInjection;
 using UBB_SE_2025_EUROTRUCKERS.Models;
 

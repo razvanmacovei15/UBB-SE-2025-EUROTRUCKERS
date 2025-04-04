@@ -46,6 +46,13 @@ namespace UBB_SE_2025_EUROTRUCKERS.Services
                 throw new InvalidOperationException("ContentFrame no ha sido establecido");
 
             var viewType = GetViewTypeForViewModel(typeof(TViewModel));
+
+            if (viewType == null)
+                throw new InvalidOperationException($"No se encontró la vista correspondiente para {typeof(TViewModel).FullName}");
+
+            if (parameter == null)
+                throw new ArgumentNullException(nameof(parameter), "El parámetro no puede ser nulo");
+
             _contentFrame.Navigate(viewType, parameter);
         }
 

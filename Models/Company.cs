@@ -1,5 +1,4 @@
-﻿
-namespace UBB_SE_2025_EUROTRUCKERS.Models
+﻿namespace UBB_SE_2025_EUROTRUCKERS.Models
 {
     public class Company
     {

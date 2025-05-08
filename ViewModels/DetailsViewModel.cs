@@ -15,20 +15,20 @@ namespace UBB_SE_2025_EUROTRUCKERS.ViewModels
         private readonly INavigationService _navigationService;
 
         [ObservableProperty]
-        private Delivery _selectedDelivery = new();
+        private Delivery? _selectedDelivery;
 
         public DetailsViewModel(INavigationService navigationService)
         {
             _navigationService = navigationService;
-            Title = "SelectedDelivery";
+            Title = "Delivery Details";
         }
 
-        private void NavigateToDetails(Delivery delivery)
+        partial void OnSelectedDeliveryChanged(Delivery? value)
         {
-            if (delivery != null)
+            // Handle any logic when SelectedDelivery changes
+            if (value != null)
             {
-                _selectedDelivery = delivery;
-                _navigationService.NavigateToWithParameter<DetailsViewModel>(delivery);
+                // You can add any additional logic here when the delivery is set
             }
         }
     }

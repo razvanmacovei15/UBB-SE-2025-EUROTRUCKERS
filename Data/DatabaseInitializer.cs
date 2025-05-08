@@ -33,7 +33,7 @@ namespace UBB_SE_2025_EUROTRUCKERS.Data
 
         private async Task CreateDatabaseFromScriptsAsync()
         {
-            using var adminConnection = new NpgsqlConnection("Host=localhost;Username=postgres;Password=admin;Database=postgres");
+            using var adminConnection = new NpgsqlConnection("Host=localhost;Username=postgres;Password=postgres;Database=postgres");
             adminConnection.Open();
 
             var dbExistsCmd = new NpgsqlCommand("SELECT 1 FROM pg_database WHERE datname = 'transport_dev'", adminConnection);
@@ -53,7 +53,7 @@ namespace UBB_SE_2025_EUROTRUCKERS.Data
             adminConnection.Close();
 
             // Nueva conexión a transport_dev
-            using (var connection = new NpgsqlConnection("Host=localhost;Username=postgres;Password=admin;Database=transport_dev"))
+            using (var connection = new NpgsqlConnection("Host=localhost;Username=postgres;Password=postgres;Database=transport_dev"))
             {
                 try
                 {

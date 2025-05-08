@@ -1,11 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using UBB_SE_2025_EUROTRUCKERS.Models;
-using UBB_SE_2025_EUROTRUCKERS.Services;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using System.Linq;
 using System;
+using UBB_SE_2025_EUROTRUCKERS.Services;
+using UBB_SE_2025_EUROTRUCKERS.Models;
 
 namespace UBB_SE_2025_EUROTRUCKERS.ViewModels
 {
@@ -13,16 +12,19 @@ namespace UBB_SE_2025_EUROTRUCKERS.ViewModels
     {
         private readonly IDeliveryService _deliveryService;
         private readonly INavigationService _navigationService;
+        private readonly ILoggingService _loggingService;
 
         [ObservableProperty]
         private ObservableCollection<Delivery> _deliveries = new();
 
         public DeliveriesViewModel(
             IDeliveryService deliveryService,
-            INavigationService navigationService)
+            INavigationService navigationService,
+            ILoggingService loggingService)
         {
             _deliveryService = deliveryService;
             _navigationService = navigationService;
+            _loggingService = loggingService;
             Title = "Deliveries";
             LoadDeliveriesCommand = new AsyncRelayCommand(LoadDeliveriesAsync);
             NavigateToDetailsCommand = new RelayCommand<Delivery>(NavigateToDetails);
@@ -42,25 +44,16 @@ namespace UBB_SE_2025_EUROTRUCKERS.ViewModels
             try
             {
                 var deliveries = await _deliveryService.GetAllDeliveriesAsync();
-
-                if (deliveries == null || !deliveries.Any())
-                {
-                    Console.WriteLine("No deliveries found.");
-                }
-                else
-                {
-                    Console.WriteLine($"Found {deliveries.Count()} deliveries.");
-                }
-
                 Deliveries.Clear();
                 foreach (var delivery in deliveries)
                 {
                     Deliveries.Add(delivery);
                 }
+                _loggingService.LogInformation($"Loaded {Deliveries.Count} deliveries");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error loading deliveries: {ex.Message}");
+                _loggingService.LogError("Error loading deliveries", ex);
             }
             finally
             {
@@ -68,14 +61,12 @@ namespace UBB_SE_2025_EUROTRUCKERS.ViewModels
             }
         }
 
-
-
-
-        private void NavigateToDetails(Delivery delivery)
+        private void NavigateToDetails(Delivery? delivery)
         {
             if (delivery != null)
             {
                 _navigationService.NavigateToWithParameter<DetailsViewModel>(delivery);
+                _loggingService.LogDebug($"Navigating to details view for delivery {delivery.delivery_id}");
             }
         }
     }

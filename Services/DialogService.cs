@@ -4,7 +4,6 @@ using Microsoft.UI.Xaml.Controls;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System;
-using UBB_SE_2025_EUROTRUCKERS.Services;
 
 namespace UBB_SE_2025_EUROTRUCKERS.Services;
 

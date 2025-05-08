@@ -1,16 +1,16 @@
 ﻿using System;
 using Microsoft.UI.Xaml;
 using Microsoft.Extensions.DependencyInjection;
-using UBB_SE_2025_EUROTRUCKERS.Data;
 using Microsoft.EntityFrameworkCore;
 using LaunchActivatedEventArgs = Microsoft.UI.Xaml.LaunchActivatedEventArgs;
-using UBB_SE_2025_EUROTRUCKERS.Services;
 using UBB_SE_2025_EUROTRUCKERS.ViewModels;
 using UBB_SE_2025_EUROTRUCKERS.Views;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Hosting;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using UBB_SE_2025_EUROTRUCKERS.Services;
+using UBB_SE_2025_EUROTRUCKERS.Data;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -38,7 +38,7 @@ namespace UBB_SE_2025_EUROTRUCKERS
             // 1. Configuration of Entity Framework Core with PostgreSQL
             services.AddDbContext<TransportDbContext>(options =>
             {
-                options.UseNpgsql("Host=localhost;Database=transport_dev;Username=postgres;Password=admin");
+                options.UseNpgsql("Host=localhost;Database=transport_dev;Username=postgres;Password=postgres");
 
                 // Aditional settings (for development)
                 options.EnableSensitiveDataLogging();
@@ -52,6 +52,7 @@ namespace UBB_SE_2025_EUROTRUCKERS
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddTransient<IDeliveryService, DeliveryService>();
             services.AddSingleton<IDialogService, DialogService>();
+            services.AddSingleton<ILoggingService, LoggingService>();
             services.AddLogging(configure => configure.AddDebug());
 
             // 4. Repositories
@@ -65,7 +66,7 @@ namespace UBB_SE_2025_EUROTRUCKERS
             // 6. Views
             services.AddTransient<MainWindow>();
             services.AddTransient<DeliveriesView>();
-            services.AddTransient<DetailsPage>();
+            services.AddTransient<DetailsView>();
 
             // 7. Additional configuration
             services.AddLogging(configure => configure.AddDebug());
